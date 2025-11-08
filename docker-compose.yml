@@ -1,0 +1,14 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: Graph3Count
+    #environment:
+    volumes:
+      - ./data:/app/data # for the data to be backed up
+      - ./app/index.html:/app/index.html # for the frontend code
+      - ./app/main.py:/app/main.py # for the backend code
+    ports:
+      - 8080:8080
+    restart: unless-stopped

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang=en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <title>Graph3Count</title>
+
+  <script
+    type="text/javascript"
+    src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"
+  ></script>
+
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 20px;
+    }
+    #network {
+      width: 800px;
+      height: 500px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+    .status {
+      margin-top: 8px;
+      font-size: 0.9em;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Graph3Count</h2>
+  <div id="network"></div>
+  <div class="status" id="status">Initial loading...</div>
+
+  <script>
+    let lastData = "";
+    let network = null;
+
+    function drawGraph(data) {
+      const n = data.matrix.length;
+      const edges = [];
+      const nodes = data.nodes.map(i => ({
+        id: i.id,
+        label: i.name,   // uses the person's name
+        shape: "dot",   // cercle de taille fixe
+        size: 20  // fixed size for all knots
+      }));
+
+      for (let i = 0; i < n; i++) {
+        for (let j = 0; j < n; j++) {
+          const weight = data.matrix[i][j];
+          if (weight !== 0) {
+            edges.push({ 
+              from: i, to: j, 
+              label: weight.toString(), // weight rounded to 2 decimal places
+              font: { align: "middle", color: "#ff0000" }, // displays the weight
+              color: { color: "#555", highlight: "#ff0000" } // label style
+              // width: Math.max(weight, 1) // optional: thickness proportional to weight
+            });
+          }
+        }
+      }
+
+      const container = document.getElementById("network");
+      const graphData = { nodes, edges };
+      const options = {
+        physics: {
+          enabled: true,
+          solver: 'barnesHut',  // physics engine
+          barnesHut: {
+            gravitationalConstant: -8000, // more negative values ​​= greater distance
+            centralGravity: 0.3,
+            springLength: 250,          // “natural” length of the links
+            springConstant: 0.05,
+            damping: 0.09
+          },
+          stabilization: { iterations: 200 } // stabilization time
+        },
+        edges: { arrows: "to" },
+        nodes: {
+          shape: "circle",
+          color: "#97C2FC",
+          font: { size: 14, color: "#000" },
+        },
+      };
+
+      if (network) {
+        network.setData(graphData);
+      } else {
+        network = new vis.Network(container, graphData, options);
+      }
+    }
+
+    async function fetchData() {
+      try {
+        const response = await fetch("/data/data.json?_=" + Date.now()); // avoid the cache
+        if (!response.ok) throw new Error("Unable to load data");
+        return await response.json();
+      } catch (e) {
+        console.error(e);
+        return null;
+      }
+    }
+
+    async function checkForUpdates() {
+      const json = await fetchData();
+      const serialized = JSON.stringify(json);
+
+      if (serialized !== lastData) {
+        console.log("Graph data updated, re-rendering...");
+        drawGraph(json);
+        lastData = serialized;
+        document.getElementById("status").textContent =
+          "Last updated : " + new Date().toLocaleTimeString();
+      }
+    }
+
+    checkForUpdates(); // start the initial check
+    setInterval(checkForUpdates, 1000); // check every 1 second
+  </script>
+</body>
+</html>

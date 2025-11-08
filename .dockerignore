@@ -1,0 +1,9 @@
+.dockerignore
+docker-compose.yml
+Dockerfile
+
+# These lines are unnecessary, because the Dockerfile only copies what is located in /app
+/data
+/report
+.gitignore
+*.md

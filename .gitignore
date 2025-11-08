@@ -1,3 +1,21 @@
+# User data
+/data
+
+# LaTeX
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.pdf
+*.gz
+
+# Images
+*.ico
+*.jpg
+*.png
+
+# --- Python GitHub gitignore template ---
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
