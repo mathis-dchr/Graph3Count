@@ -1,0 +1,13 @@
+members:
+  - Name 1
+  - Name 2
+  - Name 3
+
+transaction:
+  - from: Name 1 # transaction issuer
+    to: # receiver(s) name
+      - Name 2
+      - Name 3
+    amount: 10
+    name: transaction name
+    date: YYYY-MM-DD
