@@ -78,8 +78,8 @@ This section simply provides a visual representation of the graph associated wit
 ### Backend
 >- Language: Python
 >- Tool: Python3.13
->- Libraries: NumPy
->- Files: `main.py`, `requirements.txt`
+>- Libraries: NumPy, PyYAML
+>- Files: `main.py`, `graph.py`, `requirements.txt`
 
 This is the heart of the problem. Here we find the structure for creating the graph as an object, as well as the algorithm that allows the problem to be solved.
 
@@ -89,3 +89,6 @@ This is the heart of the problem. Here we find the structure for creating the gr
 - https://github.com/gondyb/tricount-algorithm
 - https://github.com/davymariko/Tricount
 - https://medium.com/@alexbrou/split-bills-with-friends-the-algorithm-behind-tricount-and-splitwise-using-integer-programming-48cd01999507
+
+- https://tricount.com/
+- https://www.splitwise.com/
