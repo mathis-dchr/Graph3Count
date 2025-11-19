@@ -18,7 +18,8 @@ Project for the Graphs and Applications course at Tongji University. This projec
 This command will install all the tools and dependencies necessary for the project, as well as create the environment (container) to run the project. You can delete the image and the container (`Graph3Count`) associated with the project at any time if you wish.
 
 - Still in your terminal, run: `docker exec -it Graph3Count bash` to enter the development container.
-- You can then run: `python main.py` to work on the project.
+- In the `/data` folder you can copy and paste the `intent.template.yaml` file into `intent.yaml` file and fill it as you wish.
+- Once all participants and transactions have been recorded, you can run the `main.py` file in the container with this command: `python main.py`
 - Open a browser and enter the address: `http://localhost:8080`. You can then observe the graph created from the executed Python commands.
 
 
@@ -40,9 +41,11 @@ That being said, you can always install (or you may already have installed) the 
 
 ### Data
 >- Language: JSON
->- File: `data.json`
+>- File: `intent.yaml`, `data.json`
 
-The `data.json` file stores the graph's adjacency matrix and the names of the people. This file is used both by the backend for resolution and by the frontend to display the graph associated with this matrix.
+The `intent.yaml` file allows you to record the list of participants and the expenses between participants (see the `intent.template.yaml` file for the structure). It is the entry point between the user and the project.
+
+The `data.json` file stores the graph's adjacency matrix and the names of the people (see the `data.template.json` file for the structure). This file is used both by the backend for resolution and by the frontend to display the graph associated with this matrix.
 
 Matrix structure:
 ```

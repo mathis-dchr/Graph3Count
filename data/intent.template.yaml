@@ -1,13 +1,13 @@
-members:
+members: # list of members (note: if a transaction exists with a member who is not listed here, there is an error)
   - Name 1
   - Name 2
   - Name 3
 
-transaction:
+transaction: # list of transactions (note: you can copy and paste the first dash to add a transaction)
   - from: Name 1 # transaction issuer
     to: # receiver(s) name
       - Name 2
       - Name 3
-    amount: 10
-    name: transaction name
-    date: YYYY-MM-DD
+    amount: 10 # transaction amount (positive if it's an expense, negative if it's an income)
+    name: transaction name # transaction name (optional)
+    date: YYYY-MM-DD # transaction date (optional)
