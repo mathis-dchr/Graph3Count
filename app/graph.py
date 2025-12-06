@@ -93,7 +93,7 @@ class Graph:
         for txn in simplified_transactions:
             self.add_edge(txn["from"], txn["to"], txn["amount"]) # add the new edges
             
-        return simplified_transactions
+        return balances, simplified_transactions
 
     def __repr__(self): # for debugging
         return f"Graph(nodes={self.nodes}, matrix={self.matrix})"
