@@ -55,13 +55,13 @@ class Graph:
 
         return balances
     
-    def transaction_optimization(self):
+    def transactions_optimization(self):
         '''Optimize transactions to minimize the number of payments by using the net balance.'''
         balances = self.calculate_net_balances()
         simplified_transactions = []
         
         # Sort to put the largest debtors and creditors first (optional)
-        debtors_list = sorted([(name, -balance) for name, balance in balances.items() if balance < -0.01], key=lambda item: item[1], reverse=True) # debtors (must pay, balance < 0): amount to pay is positive
+        debtors_list = sorted([(name, balance) for name, balance in balances.items() if balance < -0.01], key=lambda item: item[1], reverse=True) # debtors (must pay, balance < 0): amount to pay is positive
         creditors_list = sorted([(name, balance) for name, balance in balances.items() if balance > 0.01], key=lambda item: item[1], reverse=True) # creditors (due to receive, balance > 0): amount to be received is positive
 
         # Minimum settlement algorithm: Make debtors pay creditors until the balances are equalized
@@ -70,7 +70,7 @@ class Graph:
             creditor_name, credit_amount = creditors_list.pop(0)
 
             # The transaction amount is the minimum of the debt to be paid and the receivable to be received
-            transfer_amount = min(debt_amount, credit_amount)
+            transfer_amount = min(abs(debt_amount), credit_amount)
             
             # Adding the total transaction between two members
             simplified_transactions.append({
@@ -90,8 +90,8 @@ class Graph:
         # Replace the graph matrix with the new simplified matrix
         num_nodes = len(self.nodes)
         self.matrix = [[0.0] * num_nodes for _ in range(num_nodes)] # reset the matrix to 0
-        for txn in simplified_transactions:
-            self.add_edge(txn["from"], txn["to"], txn["amount"]) # add the new edges
+        for transactions in simplified_transactions:
+            self.add_edge(transactions["from"], transactions["to"], transactions["amount"]) # add the new edges
             
         return balances, simplified_transactions
 

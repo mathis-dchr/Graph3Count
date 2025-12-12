@@ -3,7 +3,7 @@ members: # list of members (note: if a transaction exists with a member who is n
   - Name 2
   - Name 3
 
-transaction: # list of transactions (note: you can copy and paste the first dash to add a transaction)
+transactions: # list of transactions (note: you can copy and paste the first dash to add a transaction)
   - from: Name 1 # transaction issuer
     to: # receiver(s) name
       - Name 2

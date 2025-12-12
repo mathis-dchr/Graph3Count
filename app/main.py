@@ -11,7 +11,7 @@ def process_transactions(graph, yaml_path="intent.yaml"):
         graph.add_node(member)
 
     # Handle transactions
-    for txn in intent.get("transaction", []):
+    for txn in intent.get("transactions", []):
         sender = txn["from"]
         receivers = txn["to"]
         amount = txn["amount"]
@@ -37,7 +37,7 @@ def graph_optimization(graph):
         if i != j and graph.matrix[i][j] != 0.0
     )
 
-    balances, simplified_transactions = graph.transaction_optimization() # transaction optimization
+    balances, simplified_transactions = graph.transactions_optimization() # transactions optimization
     print("\nOptimized transactions")
     graph.save() # saving the graph to the data.json file
     print("Graph saved to data.json")
