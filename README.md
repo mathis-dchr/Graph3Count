@@ -40,7 +40,7 @@ This project is containerized with Docker. It is strongly recommended that you u
 That being said, you can always install (or you may already have installed) the necessary tools and dependencies (see below) on your machine. If so, you are free to use the project directly on your machine. Note that in this case, you will need to run the Python server manually to use the frontend with the command: `python -m http.server 8080 --bind 0.0.0.0`
 
 ### Data
->- Language: JSON
+>- Language: JSON, YAML
 >- File: `intent.yaml`, `data.json`
 
 The `intent.yaml` file allows you to record the list of participants and the expenses between participants (see the `intent.template.yaml` file for the structure). It is the entry point between the user and the project.
